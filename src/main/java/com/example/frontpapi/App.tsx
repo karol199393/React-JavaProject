@@ -1,14 +1,27 @@
+``// App.tsx
 // @ts-ignore
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-function App() {
-    const [druzyny, setDruzyny] = useState<{ id: number; nazwa: string }[]>([]);
+interface Druzyna {
+    id: number;
+    nazwa: string;
+}
 
-    // Funkcja do pobierania drużyn z serwera
-    // @ts-ignore
-    const pobierzDruzyny = async () => {
+export const ListaDruzyn: React.FC<{ druzyny: Druzyna[] }> = ({ druzyny }) => (
+    <div>
+        <h2>Lista Drużyn:</h2>
+        <ul>
+            {druzyny.map((druzyna) => (
+                <li key={druzyna.id}>{druzyna.nazwa}</li>
+            ))}
+        </ul>
+    </div>
+);
+
+useEffect(() => {
+    const fetchData = async () => {
         try {
-            const response = await fetch('/api/druzyny'); // Zmień ścieżkę na odpowiednią
+            const response = await fetch('/api/teams/getTeams'); // Poprawiony endpoint
             const data = await response.json();
             setDruzyny(data);
         } catch (error) {
@@ -16,19 +29,14 @@ function App() {
         }
     };
 
-    // Wywołaj funkcję pobierania drużyn po zamontowaniu komponentu
-    useEffect(() => {
-        pobierzDruzyny();
-    }, []);
-
+    fetchData();
+}, []);
     return (
         <div>
-            {/* Nagłówek aplikacji */}
             <h1>Aplikacja do Zarządzania Drużynami</h1>
-            {/* Lista drużyn */}
             <ListaDruzyn druzyny={druzyny} />
         </div>
     );
-}
+
 
 export default App;
