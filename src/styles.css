@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:antiquewhite;
+}
+
+container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: chartreuse;
+    max-width: 400;
+    border-radius: 5;
+    box-shadow: darkturquoise;
+}
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+team-item{
+    padding:10px;
+    margin-top: 10px;
+    margin-bottom:20px;
+    background-color: bisque;
+    border-radius: 3px;
+}
+
